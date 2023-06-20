@@ -1,0 +1,2 @@
+2023-06-20 10:31:22.924 [main] WARN  c.e.b.Block5LoggingApplication - Esto es un mensaje de advertencia
+2023-06-20 10:31:22.929 [main] ERROR c.e.b.Block5LoggingApplication - Esto es un mensaje de error
