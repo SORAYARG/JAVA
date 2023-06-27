@@ -18,6 +18,7 @@ public class Ciudad {
     }
 
     public int getNumeroHabitantes() {
+
         return numeroHabitantes;
     }
 
