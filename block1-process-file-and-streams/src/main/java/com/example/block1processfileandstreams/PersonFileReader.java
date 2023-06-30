@@ -1,4 +1,5 @@
-package org.example;
+package com.example.block1processfileandstreams;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,29 +8,28 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonFileReader {
-    public static List<Person> readPeopleFromFile(String filePath) throws IOException, InvalidLineFormatException {
-        List<Person> people = new ArrayList<>();
+public class PersonFileReader { public static List<Person> readPeopleFromFile(String filePath) throws IOException, InvalidLineFormatException {
+    List<Person> people = new ArrayList<>();
 
-        Path path = Paths.get(filePath);
-        BufferedReader reader = new BufferedReader(new FileReader(path.toFile()));
+    Path path = Paths.get(filePath);
+    BufferedReader reader = new BufferedReader(new FileReader(path.toFile()));
 
-        String line;
-        int lineNumber = 0;
-        while ((line = reader.readLine()) != null) {
-            try {
-                Person person = parsePersonFromLine(line);
-                people.add(person);
-            } catch (InvalidLineFormatException e) {
-                throw new InvalidLineFormatException("Error in line " + lineNumber + ": " + e.getMessage());
-            }
-            lineNumber++;
+    String line;
+    int lineNumber = 0;
+    while ((line = reader.readLine()) != null) {
+        try {
+            Person person = parsePersonFromLine(line);
+            people.add(person);
+        } catch (InvalidLineFormatException e) {
+            throw new InvalidLineFormatException("Error in line " + lineNumber + ": " + e.getMessage());
         }
-
-        reader.close();
-
-        return people;
+        lineNumber++;
     }
+
+    reader.close();
+
+    return people;
+}
 
     private static Person parsePersonFromLine(String line) throws InvalidLineFormatException {
         String[] fields = line.split(":");

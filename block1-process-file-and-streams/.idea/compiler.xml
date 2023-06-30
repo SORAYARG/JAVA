@@ -6,11 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Maven.block1-process-file-and-streams" />
+        <module name="block1-process-file-and-streams" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Maven.block1-process-file-and-streams" target="17" />
-    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="block1-process-file-and-streams" options="-parameters" />
+    </option>
   </component>
 </project>

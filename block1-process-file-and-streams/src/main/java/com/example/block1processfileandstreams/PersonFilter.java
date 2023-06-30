@@ -1,10 +1,10 @@
-package org.example;
+package com.example.block1processfileandstreams;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-class PersonFilter {
+public class PersonFilter {
     public static Optional<Person> findFirstByTown(List<Person> people, String town) {
         return people.stream()
                 .filter(person -> person.getTown() != null && person.getTown().equalsIgnoreCase(town))

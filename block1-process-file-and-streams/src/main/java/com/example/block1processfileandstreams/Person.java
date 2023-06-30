@@ -1,4 +1,4 @@
-package org.example;
+package com.example.block1processfileandstreams;
 
 public class Person {
 
@@ -43,3 +43,4 @@ public class Person {
                 " Town: " + (town != null && !town.isEmpty() ? town : "Unknown");
     }
 }
+
