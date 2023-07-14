@@ -3,13 +3,15 @@ package com.example.block7crudvalidation.person.application;
 import com.example.block7crudvalidation.person.domain.Person;
 import com.example.block7crudvalidation.person.infraestructure.dto.PersonInputDto;
 import com.example.block7crudvalidation.person.infraestructure.dto.PersonOutputDto;
+import com.example.block7crudvalidation.exception.EntityNotFoundException;
+import com.example.block7crudvalidation.person.infraestructure.mapper.PersonMapper;
 import com.example.block7crudvalidation.person.infraestructure.repository.PersonRepository;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 @Service
 public class PersonServiceImpl implements PersonService {
 
@@ -18,40 +20,43 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonOutputDto addPerson(PersonInputDto personInputDTO) {
-        Person person = new Person(personInputDTO);
-        personRepository.save(person);
-
-        return new PersonOutputDto(person);
+        PersonMapper mapper = Mappers.getMapper(PersonMapper.class);
+        Person persona = new Person(personInputDTO);
+        personRepository.save(persona);
+        return mapper.personToPersonOutputDto(persona);
     }
     @Override
     public PersonOutputDto getPersonById(Integer id) {
-        Optional<Person> optionalPerson = personRepository.findById(id);
-        if (optionalPerson.isPresent()) {
-            return new PersonOutputDto(optionalPerson.get());
-        } else {
-            throw new RuntimeException("No person found with ID: " + id);
-        }
+        PersonMapper mapper = Mappers.getMapper(PersonMapper.class);
+        Person persona = personRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+        return mapper.personToPersonOutputDto(persona);
+    }
+    @Override
+    public List<PersonOutputDto> getPersonName(String name) {
+        return personRepository.findAll()
+                .stream()
+                .filter(person -> person.getName().equals(name))
+                .map(person -> {
+                    PersonMapper mapper = Mappers.getMapper(PersonMapper.class);
+                    return mapper.personToPersonOutputDto(person);
+                }).toList();
     }
 
 
     @Override
     public void deletePersonById(int id) {
-        personRepository.deleteById(id);
+        Person person = personRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
-    public List<PersonOutputDto> getPersons() {
-        List<PersonOutputDto> personOutputList = new ArrayList<>();
-        personRepository.findAll().forEach(person -> personOutputList.add(new PersonOutputDto(person)));
-        return personOutputList;
+    public List<PersonOutputDto> getAllPersons() {
+       return personRepository.findAll().stream().map(person -> {
+           PersonMapper mapper = Mappers.getMapper(PersonMapper.class);
+        return mapper.personToPersonOutputDto(person);
+    }).toList();
     }
 
-    @Override
-    public List<PersonOutputDto> getPersonName(String username) {
-        List<PersonOutputDto> personOutputList = new ArrayList<>();
-        personRepository.findByName(username).forEach(person -> personOutputList.add(new PersonOutputDto(person)));
-        return personOutputList;
-    }
 
     @Override
     public PersonOutputDto updatePerson(Integer id, PersonInputDto personInputDto) throws RuntimeException {

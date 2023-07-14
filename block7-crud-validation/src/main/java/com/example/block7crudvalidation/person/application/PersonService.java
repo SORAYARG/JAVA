@@ -10,7 +10,7 @@ public interface PersonService {
     PersonOutputDto addPerson(PersonInputDto personInputDto);
     PersonOutputDto getPersonById(Integer id);
     List<PersonOutputDto> getPersonName(String name);
-    List<PersonOutputDto> getPersons();
+    List<PersonOutputDto> getAllPersons();
     PersonOutputDto updatePerson(Integer id, PersonInputDto personInputDto);
     void deletePersonById(int id);
 

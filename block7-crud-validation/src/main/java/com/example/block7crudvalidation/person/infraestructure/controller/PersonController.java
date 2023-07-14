@@ -1,5 +1,6 @@
 package com.example.block7crudvalidation.person.infraestructure.controller;
 
+import com.example.block7crudvalidation.person.infraestructure.mapper.PersonMapper;
 import com.example.block7crudvalidation.person.application.PersonServiceImpl;
 import com.example.block7crudvalidation.person.infraestructure.dto.PersonInputDto;
 import com.example.block7crudvalidation.person.infraestructure.dto.PersonOutputDto;
@@ -24,8 +25,8 @@ public class PersonController {
         return personService.addPerson(personInputDTO);
     }
     @GetMapping
-    public Iterable<PersonOutputDto> getAllPeople() {
-        return personService.getPersons();
+    public Iterable<PersonOutputDto> getAllPersons() {
+        return personService.getAllPersons();
     }
 
     @GetMapping("/{id}")
