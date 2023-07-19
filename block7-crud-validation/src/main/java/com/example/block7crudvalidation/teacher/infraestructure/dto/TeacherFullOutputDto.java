@@ -1,28 +1,32 @@
-package com.example.block7crudvalidation.person.infraestructure.dto;
+package com.example.block7crudvalidation.teacher.infraestructure.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class PersonInputDto {
-    int id;
+public class TeacherFullOutputDto {
+
+    String idTeacher;
+    String comments;
+    String branch;
+    int idPerson;
     String username;
     String password;
     String name;
-    String lastname;
+    String surname;
     String companyEmail;
     String personalEmail;
     String city;
     Boolean active;
+    Date createdDate;
     String imageUrl;
     Date terminationDate;
-    Date createdDate;
-
-
 }

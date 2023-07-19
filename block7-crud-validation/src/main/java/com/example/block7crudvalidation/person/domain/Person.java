@@ -1,74 +1,93 @@
 package com.example.block7crudvalidation.person.domain;
 
+import com.example.block7crudvalidation.exception.UnprocessableEntityException;
 import com.example.block7crudvalidation.person.infraestructure.dto.PersonInputDto;
+import com.example.block7crudvalidation.student.domain.Student;
+import com.example.block7crudvalidation.teacher.domain.Teacher;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
-
+@Entity
+@Table(name = "person")
 @Getter
 @Setter
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Entity
-
-@Table(name = "Persons")
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
-    private String username;
-    private String password;
-    private String name;
-    private String surname;
-    private String companyEmail;
-    private String personalEmail;
-    private String city;
-    private boolean active;
-    private Date createdDate;
-    private String imageUrl;
-    private Date terminationDate;
+    @GeneratedValue
+    int personId;
+    String username;
+    String password;
+    String firstName;
+    String lastName;
+    String companyEmail;
+    String personalEmail;
+    String city;
+    Boolean active;
+    Date createdDate;
+    String imageUrl;
+    Date terminationDate;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    Student student;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    Teacher teacher;
 
-    public void update(PersonInputDto personInputDto) {
-        if (personInputDto.getUsername() != null && personInputDto.getUsername().length() <= 10 && personInputDto.getUsername().length() >= 6) {
-            setUsername(personInputDto.getUsername());
-        }
-        if (personInputDto.getName() != null) {
-            setName(personInputDto.getName());
-        }
-        if (personInputDto.getSurname() != null) {
-            setSurname(personInputDto.getSurname());
-        }
-        if (personInputDto.getPassword() != null) {
-            setPassword(personInputDto.getPassword());
-        }
-        if (personInputDto.getCompanyEmail() != null) {
-            setCompanyEmail(personInputDto.getCompanyEmail());
-        }
-        if (personInputDto.getPersonalEmail() != null) {
-            setPersonalEmail(personInputDto.getPersonalEmail());
-        }
-        if (personInputDto.getCity() != null) {
-            setCity(personInputDto.getCity());
-        }
-        if (personInputDto.getImageUrl() != null) {
-            setImageUrl(personInputDto.getImageUrl());
-        }
-}
+    public Person(PersonInputDto personInputDto) throws UnprocessableEntityException {
 
-    public Person(PersonInputDto personInputDTO) {
-        this.username = personInputDTO.getUsername();
-        this.password = personInputDTO.getPassword();
-        this.name = personInputDTO.getName();
-        this.surname = personInputDTO.getSurname();
-        this.companyEmail = personInputDTO.getCompanyEmail();
-        this.personalEmail = personInputDTO.getPersonalEmail();
-        this.city = personInputDTO.getCity();
-        this.active = personInputDTO.isActive();
-        this.imageUrl = personInputDTO.getImageUrl();
-        this.terminationDate = personInputDTO.getTerminationDate();
-        this.createdDate = personInputDTO.getCreatedDate();
+        if (personInputDto.getUsername() == null) {
+            throw new UnprocessableEntityException("Username cannot be null");
+        } else if (personInputDto.getUsername().length() > 10) {
+            throw new UnprocessableEntityException("Username length cannot exceed 10 characters");
+        } else if (personInputDto.getUsername().length() < 6) {
+            throw new UnprocessableEntityException("Username length cannot be less than 6 characters");
+        } else {
+            this.username = personInputDto.getUsername();
         }
+
+        if (personInputDto.getPassword() == null) {
+            throw new UnprocessableEntityException("Password cannot be null");
+        } else {
+            this.password = personInputDto.getPassword();
+        }
+
+        if (personInputDto.getName() == null) {
+            throw new UnprocessableEntityException("First name cannot be null");
+        } else {
+            this.firstName = personInputDto.getName();
+        }
+
+        if (personInputDto.getCompanyEmail() == null) {
+            throw new UnprocessableEntityException("Company email cannot be null");
+        } else {
+            this.companyEmail = personInputDto.getCompanyEmail();
+        }
+
+        if (personInputDto.getPersonalEmail() == null) {
+            throw new UnprocessableEntityException("Personal email cannot be null");
+        } else {
+            this.personalEmail = personInputDto.getPersonalEmail();
+        }
+
+        if (personInputDto.getCity() == null) {
+            throw new UnprocessableEntityException("City cannot be null");
+        } else {
+            this.city = personInputDto.getCity();
+        }
+
+        if (personInputDto.getActive() == null) {
+            this.active = false;
+        } else {
+            this.active = personInputDto.getActive();
+        }
+
+        if (personInputDto.getCreatedDate() == null) {
+            this.createdDate = new Date();
+        } else {
+            this.createdDate = personInputDto.getCreatedDate();
+        }
+
+
+    }
 }
