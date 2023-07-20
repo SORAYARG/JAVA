@@ -17,7 +17,7 @@ public interface PersonMapper {
     @Mapping(target = "comments", source = "person.student.comments")
     @Mapping(target = "branch", source = "person.student.branch")
     PersonStudentOutputDto personToPersonStudentOutputDto (Person person);
-    @Mapping(target = "idTeacher", source = "teacher.idteacher")
+    @Mapping(target = "idTeacher", source = "person.teacher.idTeacher")
     @Mapping(target = "comments", source = "person.teacher.comments")
     @Mapping(target = "branch", source = "person.teacher.branch")
     PersonTeacherOutputDto personToPersonTeacherOutputDto (Person person);

@@ -12,14 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class StudentInputDto {
-
-    String idStudent;
+    Integer personId;
+    Integer idTeacher;
     @NotNull(message = "The number of hours per week should not be null.")
-    Integer numHoursWeek;
+    int numHoursWeek;
     String comments;
     @NotBlank(message = "The branch must not be null")
     String branch;
-    int idPerson;
-    String idTeacher;
+
 
 }

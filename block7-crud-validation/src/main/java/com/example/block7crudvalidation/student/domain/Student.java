@@ -19,13 +19,12 @@ public class Student {
 
     @Id
     @Column(name = "id_student")
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    String idStudent;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    Integer idStudent;
     @OneToOne
     @JoinColumn(name = "id_person")
     Person person;
-    @Column(name = "hours_per_week")
+    @Column(name = "numHoursWeek")
     int numHoursWeek;
     @Column(name = "comments")
     String comments;
@@ -34,6 +33,7 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "id_teacher")
     Teacher teacher;
-    @ManyToMany(mappedBy = "student")
+    @ManyToMany
+    @JoinColumn(name = "id_subject")
     List<Asignature> studySubjects;
 }

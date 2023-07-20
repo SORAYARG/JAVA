@@ -6,10 +6,10 @@ import com.example.block7crudvalidation.asignature.infraestructure.dto.Asignatur
 public interface AsignatureService {
 
     AsignatureOutputDto addAsignature (AsignatureInputDto asignature);
-    AsignatureOutputDto getAsignatureById (String id);
+    AsignatureOutputDto getAsignatureById (Integer id);
     Iterable<AsignatureOutputDto> getAllAsignature (int pageNumber, int pageSize);
-    Iterable<AsignatureOutputDto> getAsignatureByStudentId (String idStudent);
-    AsignatureOutputDto updateAsignature (AsignatureInputDto asignature, String id);
-    void deleteAsignature (String id);
+    Iterable<AsignatureOutputDto> getAsignatureByStudentId (Integer idStudent);
+    AsignatureOutputDto updateAsignature (AsignatureInputDto asignature, Integer id);
+    void deleteAsignature (Integer id);
 
 }

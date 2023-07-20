@@ -12,15 +12,15 @@ import java.util.Date;
 @AllArgsConstructor
 public class StudentFullOutputDto {
 
-    String idStudent;
+    Integer idStudent;
     int numHoursWeek;
     String comments;
     String branch;
-    int idPerson;
+    Integer personId;
     String username;
     String password;
-    String name;
-    String surname;
+    String firstName;
+    String lastName;
     String companyEmail;
     String personalEmail;
     String city;
@@ -28,6 +28,6 @@ public class StudentFullOutputDto {
     Date createdDate;
     String imageUrl;
     Date terminationDate;
-    String idTeacher;
+    Integer idTeacher;
 
 }

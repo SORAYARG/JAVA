@@ -25,7 +25,7 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getPersonById(@PathVariable int id,
+    public ResponseEntity getPersonById(@PathVariable Integer id,
                                         @RequestParam(defaultValue = "simple", required = false)
                                         String outputType){
         PersonOutputDto person = personService.getPersonById(id);
@@ -33,7 +33,7 @@ public class PersonController {
         if(outputType.equals("simple")){
             response = ResponseEntity.ok().body(person);
         } else if (outputType.equals("full")){
-            switch (personService.getTypeOfPerson(person.getIdPerson())) {
+            switch (personService.getTypeOfPerson(person.getPersonId())) {
                 case "Student":
                     response = ResponseEntity.ok()
                             .body(personService.getPersonByIdStudent(id));
@@ -48,7 +48,7 @@ public class PersonController {
         }
         return response;
     }
-    @GetMapping("/name/{name}")
+    @GetMapping
     public Iterable getAllPersons (@RequestParam(defaultValue = "0", required = false) int pageNumber,
                                                     @RequestParam(defaultValue = "4", required = false) int pageSize,
                                                     @RequestParam(defaultValue = "simple", required = false) String outputType) {
@@ -61,7 +61,7 @@ public class PersonController {
         return person;
     }
     @PutMapping("/{id}")
-    public ResponseEntity<PersonOutputDto> updatePerson (@RequestBody PersonInputDto person, @PathVariable int id){
+    public ResponseEntity<PersonOutputDto> updatePerson (@RequestBody PersonInputDto person, @PathVariable Integer id){
         try {
             personService.getPersonById(id);
             return ResponseEntity.ok().body(personService.updatePerson(person, id));
@@ -72,7 +72,7 @@ public class PersonController {
         }
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePerson (@PathVariable int id){
+    public ResponseEntity<String> deletePerson (@PathVariable Integer id){
         try {
             personService.getPersonById(id);
             personService.deletePerson(id);

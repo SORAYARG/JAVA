@@ -7,12 +7,12 @@ import com.example.block7crudvalidation.teacher.infraestructure.dto.TeacherOutpu
 public interface TeacherService {
 
         TeacherOutputDto addTeacher(TeacherInputDto teacher);
-        TeacherOutputDto getTeacherById(String id);
-        TeacherFullOutputDto getTeacherByIdFull (String id);
+        TeacherOutputDto getTeacherById(Integer id);
+        TeacherFullOutputDto getTeacherByIdFull (Integer id);
         Iterable<TeacherOutputDto> getTeacherByName(String name);
         Iterable<TeacherOutputDto> getAllTeachers(int pageNumber, int pageSize);
-        TeacherOutputDto updateTeacher(TeacherInputDto teacher, String id);
-        void deleteTeacher(String id);
+        TeacherOutputDto updateTeacher(TeacherInputDto teacher, Integer id);
+        void deleteTeacher(Integer id);
 
     }
 

@@ -30,7 +30,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherOutputDto addTeacher(@Valid TeacherInputDto teacher) {
         TeacherMapper mapper = Mappers.getMapper(TeacherMapper.class);
-        Person person = personRepository.findById(teacher.getIdPerson())
+        Person person = personRepository.findById(teacher.getPersonId())
                 .orElseThrow(EntityNotFoundException::new);
         Teacher profesor = mapper.teacherInputDtoTeacher(teacher);
         person.setTeacher(profesor);
@@ -40,7 +40,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public TeacherOutputDto getTeacherById(String id) {
+    public TeacherOutputDto getTeacherById(Integer id) {
         TeacherMapper mapper = Mappers.getMapper(TeacherMapper.class);
         Teacher teacher = teacherRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
@@ -48,7 +48,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public TeacherFullOutputDto getTeacherByIdFull(String id) {
+    public TeacherFullOutputDto getTeacherByIdFull(Integer id) {
         TeacherMapper mapper = Mappers.getMapper(TeacherMapper.class);
         Teacher teacher =  teacherRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
@@ -80,18 +80,18 @@ public class TeacherServiceImpl implements TeacherService {
 
 
     @Override
-    public TeacherOutputDto updateTeacher(@Valid TeacherInputDto teacher, String id) {
+    public TeacherOutputDto updateTeacher(@Valid TeacherInputDto teacher, Integer id) {
         TeacherMapper mapper = Mappers.getMapper(TeacherMapper.class);
         Teacher teacherProvisional = teacherRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         teacher.setComments(teacher.getComments() != null ? teacher.getComments() : teacherProvisional.getComments());
         Teacher teacher1 = mapper.teacherInputDtoToTeacher(teacher);
-        teacher1.setIdteacher(id);
-        if (teacher.getIdPerson() != 0) {
-            int idPersonOriginal = teacherProvisional.getPerson().getPersonId();
-            personRepository.findById(idPersonOriginal)
+        teacher1.setIdTeacher(id);
+        if (teacher.getPersonId() != 0) {
+            int personIdOriginal = teacherProvisional.getPerson().getPersonId();
+            personRepository.findById(personIdOriginal)
                     .orElseThrow(EntityNotFoundException::new)
                     .setTeacher(null);
-            Person personProvisional = personRepository.findById(teacher.getIdPerson())
+            Person personProvisional = personRepository.findById(teacher.getPersonId())
                     .orElseThrow(EntityNotFoundException::new);
             teacher1.setPerson(personProvisional);
             personProvisional.setTeacher(teacher1);
@@ -106,7 +106,7 @@ public class TeacherServiceImpl implements TeacherService {
 
 
     @Override
-    public void deleteTeacher(String id) {
+    public void deleteTeacher(Integer id) {
         Teacher provisionalTeacher = teacherRepository
                 .findById(id)
                 .orElseThrow(EntityNotFoundException::new);

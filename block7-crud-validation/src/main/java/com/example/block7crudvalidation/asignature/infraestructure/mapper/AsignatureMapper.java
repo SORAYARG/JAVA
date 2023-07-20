@@ -10,7 +10,8 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface AsignatureMapper {
     AsignatureMapper INSTANCE = Mappers.getMapper(AsignatureMapper.class);
-    @Mapping(target = "asignature", source = "asignature.asignature")
+    @Mapping(target = "idSubject", source = "idSubject")
+
     AsignatureOutputDto asignatureToAsignatureOutputDto (Asignature asignature);
     Asignature asignatureInputDtoToAsignature (AsignatureInputDto asignatureInputDto);
 }

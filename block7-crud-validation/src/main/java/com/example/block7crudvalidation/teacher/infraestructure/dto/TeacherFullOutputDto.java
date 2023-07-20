@@ -14,14 +14,14 @@ import java.util.Date;
 
 public class TeacherFullOutputDto {
 
-    String idTeacher;
+    Integer idTeacher;
     String comments;
     String branch;
-    int idPerson;
+    Integer personId;
     String username;
     String password;
-    String name;
-    String surname;
+    String firstName;
+    String lastName;
     String companyEmail;
     String personalEmail;
     String city;

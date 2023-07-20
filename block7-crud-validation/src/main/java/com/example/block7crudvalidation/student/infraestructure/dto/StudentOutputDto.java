@@ -12,13 +12,13 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class StudentOutputDto {
 
-    String idStudent;
+    Integer idStudent;
     @NotNull(message = "The number of hours per week should not be null.")
-    Integer numHoursWeek;
+    int numHoursWeek;
     String comments;
     @NotBlank(message = "The branch must not be null")
     String branch;
-    int idPerson;
-    String idTeacher;
+    Integer personId;
+    Integer idTeacher;
 
 }

@@ -13,11 +13,11 @@ public interface TeacherMapper {
 
     TeacherMapper INSTANCE = Mappers.getMapper(TeacherMapper.class);
     TeacherOutputDto teacherToTeacherOutputDto (Teacher teacher);
-    @Mapping(target = "idPerson", source = "person.personId")
+    @Mapping(target = "personId", source = "person.personId")
     @Mapping(target = "username", source = "teacher.person.username")
     @Mapping(target = "password", source = "teacher.person.password")
-    @Mapping(target = "name", source = "person.username")
-    @Mapping(target = "surname", source = "person.username")
+    @Mapping(target = "firstName", source = "person.firstName")
+    @Mapping(target = "lastName", source = "person.lastName")
     @Mapping(target = "companyEmail", source = "teacher.person.companyEmail")
     @Mapping(target = "personalEmail", source = "teacher.person.personalEmail")
     @Mapping(target = "city", source = "teacher.person.city")

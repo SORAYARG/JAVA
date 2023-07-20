@@ -28,7 +28,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getStudentById(@PathVariable String id,
+    public ResponseEntity<?> getStudentById(@PathVariable Integer id,
                                             @RequestParam(defaultValue = "simple", required = false) String outputType) {
         if (outputType.equals("simple")) {
             return ResponseEntity.ok().body(studentService.getStudentById(id));
@@ -51,19 +51,19 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StudentOutputDto> updateStudent(@RequestBody StudentInputDto student, @PathVariable String id) {
+    public ResponseEntity<StudentOutputDto> updateStudent(@RequestBody StudentInputDto student, @PathVariable Integer id) {
         studentService.getStudentById(id);
         return ResponseEntity.ok().body(studentService.updateStudent(student, id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteStudent(@PathVariable String id) {
+    public ResponseEntity<String> deleteStudent(@PathVariable Integer id) {
         studentService.deleteStudent(id);
         return ResponseEntity.ok().body("Student with id has been deleted: " + id);
     }
 
     @PutMapping("/{idStudent}/{idAsignature}")
-    public ResponseEntity<String> addAsignatureToStudent(@PathVariable String idStudent, @PathVariable String idAsignature) {
+    public ResponseEntity<String> addAsignatureToStudent(@PathVariable Integer idStudent, @PathVariable Integer idAsignature) {
         studentService.getStudentById(idStudent);
         studentService.addAsignatureToStudent(idStudent, idAsignature);
         return ResponseEntity.ok().body("The subject has been added with id " + idAsignature + " to the student with id " + idStudent);

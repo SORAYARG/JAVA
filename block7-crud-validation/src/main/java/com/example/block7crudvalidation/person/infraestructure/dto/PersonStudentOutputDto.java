@@ -12,11 +12,11 @@ import java.util.Date;
 @AllArgsConstructor
 public class PersonStudentOutputDto {
 
-    private int idPerson;
+    Integer personId;
     String username;
     String password;
-    String name;
-    String surname;
+    String firstName;
+    String lastName;
     String companyEmail;
     String personalEmail;
     String city;
@@ -24,7 +24,7 @@ public class PersonStudentOutputDto {
     Date createdDate;
     String imageUrl;
     Date terminationDate;
-    String idStudent;
+    Integer idStudent;
     int numHoursWeek;
     String comments;
     String branch;

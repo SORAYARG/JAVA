@@ -11,13 +11,13 @@ public interface PersonService {
 
     PersonOutputDto addPerson(PersonInputDto personInputDto);
     PersonOutputDto getPersonById(Integer id);
-    PersonStudentOutputDto getPersonByIdStudent(int id);
-    PersonTeacherOutputDto getPersonByIdTeacher(int id);
+    PersonStudentOutputDto getPersonByIdStudent(Integer id);
+    PersonTeacherOutputDto getPersonByIdTeacher(Integer id);
     List<PersonOutputDto> getPersonName(String username);
     Iterable<PersonOutputDto> getAllPersons(int pageNumber, int pageSize);
     Iterable getAllPersonFull (int pageNumber, int pageSize);
-    PersonOutputDto updatePerson(PersonInputDto person, int id);
-    void deletePerson(int id);
+    PersonOutputDto updatePerson(PersonInputDto person, Integer id);
+    void deletePerson(Integer id);
 
 }
 

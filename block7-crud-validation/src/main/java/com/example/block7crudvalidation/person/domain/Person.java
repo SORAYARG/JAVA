@@ -17,17 +17,28 @@ public class Person {
 
     @Id
     @GeneratedValue
-    int personId;
+    Integer personId;
+    @Column
     String username;
+    @Column
     String password;
+    @Column
     String firstName;
+    @Column
     String lastName;
+    @Column
     String companyEmail;
+    @Column
     String personalEmail;
+    @Column
     String city;
+    @Column
     Boolean active;
+    @Column
     Date createdDate;
+    @Column
     String imageUrl;
+    @Column
     Date terminationDate;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     Student student;
@@ -52,10 +63,10 @@ public class Person {
             this.password = personInputDto.getPassword();
         }
 
-        if (personInputDto.getName() == null) {
+        if (personInputDto.getFirstName() == null) {
             throw new UnprocessableEntityException("First name cannot be null");
         } else {
-            this.firstName = personInputDto.getName();
+            this.firstName = personInputDto.getFirstName();
         }
 
         if (personInputDto.getCompanyEmail() == null) {
@@ -90,4 +101,6 @@ public class Person {
 
 
     }
+
+
 }

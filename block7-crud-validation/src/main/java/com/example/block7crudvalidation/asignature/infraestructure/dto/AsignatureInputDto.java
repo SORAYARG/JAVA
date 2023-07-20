@@ -12,10 +12,9 @@ import java.util.Date;
 
 public class AsignatureInputDto {
 
-    String idStudy;
-    String idStudent;
+    Integer idStudent;
     @NotNull(message = "La asignatura no debe ser nula")
-    String asignature;
+    String name;
     String comments;
     @NotNull(message = "La fecha inicial no puede ser nula")
     Date initialDate;

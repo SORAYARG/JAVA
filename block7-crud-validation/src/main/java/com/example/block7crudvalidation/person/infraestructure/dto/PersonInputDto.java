@@ -11,11 +11,11 @@ import java.util.Date;
 @AllArgsConstructor
 
 public class PersonInputDto {
-    int id;
+
     String username;
     String password;
-    String name;
-    String lastname;
+    String firstName;
+    String lastName;
     String companyEmail;
     String personalEmail;
     String city;

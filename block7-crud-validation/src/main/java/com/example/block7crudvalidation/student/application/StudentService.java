@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 public interface StudentService {
 
     StudentOutputDto addStudent (StudentInputDto student);
-    StudentOutputDto getStudentById (String id);
-    StudentFullOutputDto getStudentByIdFull (String id);
+    StudentOutputDto getStudentById (Integer id);
+    StudentFullOutputDto getStudentByIdFull (Integer id);
     Iterable<StudentOutputDto> getStudentByUsername (String username);
     Iterable<StudentOutputDto> getAllStudent (int pageNumber, int pageSize);
-    StudentOutputDto updateStudent (StudentInputDto student, String id);
-    void deleteStudent (String id);
-    void addAsignatureToStudent (String idStudent, String idAsignature);
+    StudentOutputDto updateStudent (StudentInputDto student, Integer id);
+    void deleteStudent (Integer id);
+    void addAsignatureToStudent (Integer idStudent, Integer idAsignature);
 }

@@ -1,5 +1,6 @@
 package com.example.block7crudvalidation.teacher.domain;
 
+import com.example.block7crudvalidation.asignature.domain.Asignature;
 import com.example.block7crudvalidation.person.domain.Person;
 import com.example.block7crudvalidation.student.domain.Student;
 import jakarta.persistence.*;
@@ -12,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 import java.util.List;
 
 @Entity
-@Table(name = "teacher")
+@Table(name = "teachers")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,11 +22,10 @@ import java.util.List;
 public class Teacher {
     @Id
     @Column(name = "id_teacher")
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    String idteacher;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    Integer idTeacher;
     @OneToOne
-    @JoinColumn(name = "idPerson")
+    @JoinColumn(name = "id_person")
     Person person;
     @OneToMany
     List<Student> students;
@@ -33,4 +33,6 @@ public class Teacher {
     String comments;
     @Column(name = "branch")
     String branch;
+    @OneToMany
+    List<Asignature> subjects;
 }

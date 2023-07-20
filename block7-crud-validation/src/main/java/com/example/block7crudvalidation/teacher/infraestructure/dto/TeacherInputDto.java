@@ -9,8 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TeacherInputDto {
-    String idTeacher;
+
     String comments;
     String branch;
-    int idPerson;
+    int personId;
 }

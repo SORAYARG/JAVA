@@ -48,7 +48,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonStudentOutputDto getPersonByIdStudent(int id) {
+    public PersonStudentOutputDto getPersonByIdStudent(Integer id) {
         PersonMapper mapper = Mappers.getMapper(PersonMapper.class);
         Person person = personRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
@@ -56,7 +56,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonTeacherOutputDto getPersonByIdTeacher(int id) {
+    public PersonTeacherOutputDto getPersonByIdTeacher(Integer id) {
         PersonMapper mapper = Mappers.getMapper(PersonMapper.class);
         Person person = personRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
@@ -97,11 +97,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonOutputDto updatePerson(PersonInputDto person, int id) {
+    public PersonOutputDto updatePerson(PersonInputDto person, Integer id) {
         PersonMapper mapper = Mappers.getMapper(PersonMapper.class);
         Person provisionalPerson = personRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
-        person.setLastname(person.getLastname() != null ? person.getLastname() : provisionalPerson.getLastName());
+        person.setLastName(person.getLastName() != null ? person.getLastName() : provisionalPerson.getLastName());
         person.setImageUrl(person.getImageUrl() != null ? person.getImageUrl() : provisionalPerson.getImageUrl());
         person.setTerminationDate(person.getTerminationDate() != null ? person.getTerminationDate() : provisionalPerson.getTerminationDate());
         Person updatedPerson = new Person(person);
@@ -110,7 +110,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void deletePerson(int id) {
+    public void deletePerson(Integer id) {
         Person person = personRepository.findById(id)
             .orElseThrow(EntityNotFoundException::new);
 
@@ -118,7 +118,7 @@ public class PersonServiceImpl implements PersonService {
             Student student = person.getStudent();
             if (student.getTeacher() != null) {
                 Teacher teacherProvisional = teacherRepository
-                        .findById(student.getTeacher().getIdteacher())
+                        .findById(student.getTeacher().getIdTeacher())
                         .orElseThrow(EntityNotFoundException::new);
                 teacherProvisional.getStudents().remove(student);
             }
@@ -138,7 +138,7 @@ public class PersonServiceImpl implements PersonService {
 
         personRepository.deleteById(id);
     }
-    public String getTypeOfPerson(int id) {
+    public String getTypeOfPerson(Integer id) {
         String typeOfPerson;
         Person person = personRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);

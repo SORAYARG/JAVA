@@ -27,7 +27,7 @@ public class AsignatureController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AsignatureOutputDto> getAsignatureById(@PathVariable String id) {
+    public ResponseEntity<AsignatureOutputDto> getAsignatureById(@PathVariable Integer id) {
         try {
             return ResponseEntity.ok().body(asignatureService.getAsignatureById(id));
         } catch (EntityNotFoundException e) {
@@ -42,19 +42,19 @@ public class AsignatureController {
     }
 
     @GetMapping("/studentid/{idStudent}")
-    public Iterable<AsignatureOutputDto> getAsignatureByStudentId(@PathVariable String idStudent) {
+    public Iterable<AsignatureOutputDto> getAsignatureByStudentId(@PathVariable Integer idStudent) {
         studentService.getStudentById(idStudent);
         return asignatureService.getAsignatureByStudentId(idStudent);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AsignatureOutputDto> updateAsignature(@Valid @RequestBody AsignatureInputDto asignature, @PathVariable String id) {
+    public ResponseEntity<AsignatureOutputDto> updateAsignature(@Valid @RequestBody AsignatureInputDto asignature, @PathVariable Integer id) {
         asignatureService.getAsignatureById(id);
         return ResponseEntity.ok().body(asignatureService.updateAsignature(asignature, id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteAsignature(@PathVariable String id) {
+    public ResponseEntity<String> deleteAsignature(@PathVariable Integer id) {
         asignatureService.deleteAsignature(id);
         return ResponseEntity.ok().body("Se ha borrado la asignatura con id: " + id);
     }

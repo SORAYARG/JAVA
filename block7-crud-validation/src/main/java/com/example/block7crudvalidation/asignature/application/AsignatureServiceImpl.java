@@ -31,7 +31,7 @@ public class AsignatureServiceImpl implements AsignatureService {
     }
 
     @Override
-    public AsignatureOutputDto getAsignatureById(String id) {
+    public AsignatureOutputDto getAsignatureById(Integer id) {
         AsignatureMapper mapper = Mappers.getMapper(AsignatureMapper.class);
         Asignature asignature = asignatureRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
@@ -49,10 +49,10 @@ public class AsignatureServiceImpl implements AsignatureService {
     }
 
     @Override
-    public Iterable<AsignatureOutputDto> getAsignatureByStudentId(String idStudent) {
+    public Iterable<AsignatureOutputDto> getAsignatureByStudentId(Integer idStudent) {
         Student student = studentRepository.findById(idStudent).orElseThrow();
         return asignatureRepository.findAll().stream()
-                .filter(asignature -> asignature.getStudent()
+                .filter(asignature -> asignature.getStudents()
                         .contains(student))
                 .map(asignature -> {
                     AsignatureMapper mapper = Mappers.getMapper(AsignatureMapper.class);
@@ -61,13 +61,13 @@ public class AsignatureServiceImpl implements AsignatureService {
     }
 
     @Override
-    public AsignatureOutputDto updateAsignature(@Valid AsignatureInputDto asignature, String id) {
+    public AsignatureOutputDto updateAsignature(@Valid AsignatureInputDto asignature, Integer id) {
         AsignatureMapper mapper = Mappers.getMapper(AsignatureMapper.class);
         Asignature asignatureProvisional = asignatureRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         Asignature asignature1 = mapper.asignatureInputDtoToAsignature(asignature);
-        asignature1.setIdStudy(asignatureProvisional.getIdStudy());
+        asignature1.setIdSubject(asignatureProvisional.getIdSubject());
         if (asignature.getIdStudent() != null) {
-            List<String> idStudentOriginal = asignatureProvisional.getStudent()
+            List<Integer> idStudentOriginal = asignatureProvisional.getStudents()
                     .stream()
                     .map(Student::getIdStudent)
                     .toList();
@@ -75,7 +75,7 @@ public class AsignatureServiceImpl implements AsignatureService {
                     .stream()
                     .filter(student -> {
                         boolean check = false;
-                        for (String idStudent : idStudentOriginal) {
+                        for (Integer idStudent : idStudentOriginal) {
                             if (student.getIdStudent().equals(idStudent)) {
                                 check = true;
                             }
@@ -86,20 +86,20 @@ public class AsignatureServiceImpl implements AsignatureService {
             provisionalStudents.forEach(student -> studentRepository.save(student));
             Student student1 = studentRepository.findById(asignature.getIdStudent())
                     .orElseThrow(EntityNotFoundException::new);
-            asignature1.getStudent().add(student1);
+            asignature1.getStudents().add(student1);
             student1.getStudySubjects().add(asignature1);
             studentRepository.save(student1);
         } else {
-            asignature1.setStudent(asignatureProvisional.getStudent());
+            asignature1.setStudents(asignatureProvisional.getStudents());
         }
         asignatureRepository.save(asignature1);
         return mapper.asignatureToAsignatureOutputDto(asignature1);
     }
 
     @Override
-    public void deleteAsignature(String id) {
+    public void deleteAsignature(Integer id) {
         Asignature asignature = asignatureRepository.findById(id).orElseThrow();
-        List<Student> students = asignatureRepository.findById(id).orElseThrow().getStudent();
+        List<Student> students = asignatureRepository.findById(id).orElseThrow().getStudents();
         students.forEach(student -> student.getStudySubjects().remove(asignature));
         students.forEach(student -> studentRepository.save(student));
         asignatureRepository.deleteById(id);

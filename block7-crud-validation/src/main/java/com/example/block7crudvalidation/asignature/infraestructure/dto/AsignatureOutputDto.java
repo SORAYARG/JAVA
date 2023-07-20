@@ -12,8 +12,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class AsignatureOutputDto {
 
-    String idStudy;
-    String asignature;
+    Integer idSubject;
+    String name;
     String comments;
     Date initialDate;
     Date finishDate;

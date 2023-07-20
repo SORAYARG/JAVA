@@ -28,7 +28,7 @@ public class TeacherController {
         }
     }
     @GetMapping("/{id}")
-    public ResponseEntity getTeacherById (@PathVariable String id,
+    public ResponseEntity getTeacherById (@PathVariable Integer id,
                                           @RequestParam(defaultValue =  "simple", required = false)
                                            String outputType){
         if(outputType.equals("simple")) {
@@ -50,12 +50,12 @@ public class TeacherController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<TeacherOutputDto> updateTeacher (@Valid @RequestBody TeacherInputDto teacher,
-                                                             @PathVariable String id){
+                                                             @PathVariable Integer id){
         teacherService.getTeacherById(id);
         return ResponseEntity.ok().body(teacherService.updateTeacher(teacher, id));
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTeacher (@PathVariable String id){
+    public ResponseEntity<String> deleteTeacher (@PathVariable Integer id){
         teacherService.deleteTeacher(id);
         return ResponseEntity.ok().body("Se ha borrado el profesor con id: " + id);
     }

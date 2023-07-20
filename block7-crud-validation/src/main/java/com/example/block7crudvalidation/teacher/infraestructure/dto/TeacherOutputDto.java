@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TeacherOutputDto {
 
-    String idTeacher;
+    Integer idTeacher;
     String comments;
     String branch;
 }
