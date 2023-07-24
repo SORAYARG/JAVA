@@ -17,7 +17,7 @@ public class PersonController {
 
     @Autowired
     PersonServiceImpl personService;
-
+    @CrossOrigin(origins = "https://cdpn.io")
     @PostMapping
     public ResponseEntity<PersonOutputDto> addPerson (@RequestBody PersonInputDto person) throws UnprocessableEntityException {
         URI location = URI.create("/person");
@@ -48,6 +48,8 @@ public class PersonController {
         }
         return response;
     }
+
+    @CrossOrigin(origins = "https://cdpn.io")
     @GetMapping
     public Iterable getAllPersons (@RequestParam(defaultValue = "0", required = false) int pageNumber,
                                                     @RequestParam(defaultValue = "4", required = false) int pageSize,

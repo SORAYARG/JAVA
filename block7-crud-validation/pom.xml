@@ -56,9 +56,15 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>1.5.3.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<scope>test</scope>
+			<version>4.5.14</version>
+		</dependency>
 
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>
