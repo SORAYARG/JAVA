@@ -73,6 +73,6 @@ public class FileController {
     public ResponseEntity<String> setPath(@PathVariable String path) {
         fileService.setPath(path);
         fileService.init();
-        return ResponseEntity.ok().body("El nuevo directorio es: " + path);
+        return ResponseEntity.ok().body("The new directory is: " + path);
     }
 }

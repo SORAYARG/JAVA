@@ -51,13 +51,13 @@ public class FileServiceImpl implements FileService {
         }
         try {
             if (file.isEmpty()) {
-                throw new StorageException("Error al intentar almacenar un fichero vacío");
+                throw new StorageException("Error when trying to store an empty file");
             }
 
             Path destinationFile = finalLocation.resolve(Paths.get(file.getOriginalFilename())).normalize().toAbsolutePath();
 
             if (!destinationFile.getParent().equals(finalLocation.toAbsolutePath())) {
-                throw new StorageException("No se puede almacenar el archivo fuera del directorio actual");
+                throw new StorageException("Cannot store the file outside the current directory");
             }
 
             try (InputStream inputStream = file.getInputStream()) {
@@ -71,7 +71,7 @@ public class FileServiceImpl implements FileService {
                 return fileRepository.save(fichero);
             }
         } catch (IOException e) {
-            throw new StorageException("Error al almacenar el archivo", e);
+            throw new StorageException("Error storing the file", e);
         }
     }
 
@@ -86,7 +86,7 @@ public class FileServiceImpl implements FileService {
             Optional<File> optionalFile = fileRepository.findById(id);
 
             if (optionalFile.isEmpty())
-                throw new StorageFileNotFoundException("No se ha encontrado un fichero con el id: " + id);
+                throw new StorageFileNotFoundException("Dont found file whit id: " + id);
 
             String fichero = optionalFile.get().getName();
             Path file = load(fichero);
@@ -96,7 +96,7 @@ public class FileServiceImpl implements FileService {
 
 
             if (!resource.exists() || !resource.isReadable()) {
-                throw new StorageFileNotFoundException("No se ha podido leer el ficharo con el id: " + id);
+                throw new StorageFileNotFoundException("Could not read file with id: " + id);
             }
 
             return resource;
@@ -112,13 +112,13 @@ public class FileServiceImpl implements FileService {
             Resource resource = new UrlResource(file.toUri());
 
             if (!resource.exists() || !resource.isReadable()) {
-                throw new StorageFileNotFoundException("No se ha podido leer el ficharo con el id: " + fileName);
+                throw new StorageFileNotFoundException("Could not read file with id: " + fileName);
             }
 
             return resource;
 
         } catch (MalformedURLException e) {
-            throw new StorageFileNotFoundException("No se ha podido leer el ficharo con el id: " + fileName, e);
+            throw new StorageFileNotFoundException("Could not read file with id: " + fileName, e);
         }
     }
 
@@ -139,7 +139,7 @@ public class FileServiceImpl implements FileService {
             Files.createDirectories(root);
         }
         catch (IOException e) {
-            throw new StorageException("No se ha podido iniciar el almacenamiento", e);
+            throw new StorageException("storage could not be started", e);
         }
     }
 }
